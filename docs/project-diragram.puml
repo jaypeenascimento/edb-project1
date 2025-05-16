@@ -1,0 +1,4 @@
+@startuml project-diagram.puml
+Alice -> Bob: Hello
+Bob --> Alice: Hi!
+@enduml
