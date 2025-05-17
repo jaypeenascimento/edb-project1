@@ -3,7 +3,9 @@
 #include "utils.h"
 
 int main() {
-    displayMenu();
+    while (1) {
+        start();
+    }
 
     return 0;
 }
