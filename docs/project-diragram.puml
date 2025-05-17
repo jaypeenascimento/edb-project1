@@ -1,0 +1,70 @@
+@startuml project-diagram.puml
+
+allowmixing
+skinparam linetype ortho
+
+package "Estruturas"{
+    class OrderList <<struct>>{
+        +Node* head
+        +int size
+        +void addOrder(Node order)
+        +void removeOrder(int orderId)
+        +void listPendentOrders()
+    }
+
+    class OrderQueue <<struct>>{
+        +Node* front
+        +Node* rear
+        +int count
+        +void enqueue(Node order)
+        +Node dequeue()
+        +void processOrder()
+        +void listProcessingOrders()
+    }
+
+    class Node <<struct>>{
+        +int orderId
+        +char customerName[50]
+        +Node* next
+    }
+}
+
+package "CLI - Telas" {
+    rectangle "Menu\nDigite a opção desejada:\n1 - Adicionar pedido\n2 - Remover pedido\n3 - Processar pedido\n4 - Listar pedidos (Salão)\n5 - Listar pedidos (Cozinha)" as homeScreen
+
+    rectangle "Pratos\nDigite a opção desejada:\n1 - Entradas\n2 - Pratos Principais\n3 - Sobremesas" as platesScreen
+
+    rectangle "Entradas\nDigite a opção desejada:\n1 - Sopa de Cebola\n2 - Salada Caesar\n3 - Bruschetta\n4 - Carpaccio de Carne\n5 - Camarão ao Alho" as appetizersScreen
+
+    rectangle "Pratos Principais\nDigite a opção desejada:\n1 - Lasanha à Bolonhesa\n2 - Filé Mignon com Fritas\n3 - Frango Grelhado com Legumes\n4 - Bacalhau à Gomes de Sá\n5 - Risoto de Cogumelos" as mainPlates
+
+    rectangle "Sobremesas\nDigite a opção desejada:\n1 - Tiramisu\n2 - Cheesecake de Frutas Vermelhas\n3 - Mousse de Chocolate\n4 - Pudim de Leite\n5 - Sorvete de Baunilha com Calda de Morango" as dessertsScreen
+
+    rectangle "Pedido removido com sucesso/\nNão foi possível remover o pedido\n\nPressione ENTER para voltar a tela inicial" as removeOrder
+
+    rectangle "Pedido processado com sucesso/\nNão foi possível processar o pedido\n\nPressione ENTER para voltar a tela inicial" as processOrder
+
+    rectangle "Pedidos pendende de processamento:\nLista()\n\nPressione ENTER para voltar a tela inicial" as listPendentOrders
+
+    rectangle "Pedidos em processamento\nFila()\n\nPressione ENTER para voltar a tela inicial" as listPendentOrders
+
+    rectangle "Opção inválida\n\nPressione ENTER para voltar a tela inicial" as invalidOption
+}
+
+homeScreen --> platesScreen : 1
+homeScreen --> removeOrder : 2
+homeScreen --> processOrder : 3
+homeScreen --> listPendentOrders : 4
+homeScreen --> listPendentOrders : 5
+
+platesScreen --> appetizersScreen : 1
+platesScreen --> mainPlates : 2
+platesScreen --> dessertsScreen : 3
+
+homeScreen --> invalidOption : outro
+platesScreen --> invalidOption : outro
+appetizersScreen --> invalidOption : outro
+mainPlates --> invalidOption : outro
+dessertsScreen --> invalidOption : outro
+
+@enduml
