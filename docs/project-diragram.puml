@@ -36,7 +36,7 @@ package "CLI - Telas" {
 
     rectangle "Entradas\nDigite a opção desejada:\n1 - Sopa de Cebola\n2 - Salada Caesar\n3 - Bruschetta\n4 - Carpaccio de Carne\n5 - Camarão ao Alho" as appetizersScreen
 
-    rectangle "Pratos Principais\nDigite a opção desejada:\n1 - Lasanha à Bolonhesa\n2 - Filé Mignon com Fritas\n3 - Frango Grelhado com Legumes\n4 - Bacalhau à Gomes de Sá\n5 - Risoto de Cogumelos" as mainPlates
+    rectangle "Pratos Principais\nDigite a opção desejada:\n1 - Lasanha à Bolonhesa\n2 - Filé Mignon com Fritas\n3 - Frango Grelhado com Legumes\n4 - Bacalhau à Gomes de Sá\n5 - Risoto de Cogumelos" as mainPlatesScreen
 
     rectangle "Sobremesas\nDigite a opção desejada:\n1 - Tiramisu\n2 - Cheesecake de Frutas Vermelhas\n3 - Mousse de Chocolate\n4 - Pudim de Leite\n5 - Sorvete de Baunilha com Calda de Morango" as dessertsScreen
 
@@ -58,13 +58,13 @@ homeScreen --> listPendentOrders : 4
 homeScreen --> listPendentOrders : 5
 
 platesScreen --> appetizersScreen : 1
-platesScreen --> mainPlates : 2
+platesScreen --> mainPlatesScreen : 2
 platesScreen --> dessertsScreen : 3
 
 homeScreen --> invalidOption : outro
 platesScreen --> invalidOption : outro
 appetizersScreen --> invalidOption : outro
-mainPlates --> invalidOption : outro
+mainPlatesScreen --> invalidOption : outro
 dessertsScreen --> invalidOption : outro
 
 @enduml
