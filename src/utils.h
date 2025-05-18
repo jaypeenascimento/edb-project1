@@ -1,6 +1,20 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+// Definição das estruturas
+
+typedef struct Node {
+    int value;
+    struct Node *next;
+} Node;
+
+typedef struct OrderQueue {
+    Node *head;
+    Node *tail;
+} OrderQueue;
+
+// Método de inicialização
+
 void start();
 
 // Métodos de Exibição de tela
