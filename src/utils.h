@@ -4,18 +4,28 @@
 // Definição das estruturas
 
 typedef struct Node {
-    int value;
-    struct Node *next;
+    char* value;
+    struct Node* next;
 } Node;
 
 typedef struct OrderQueue {
-    Node *head;
-    Node *tail;
+    Node* head;
+    Node* tail;
 } OrderQueue;
 
 // Método de inicialização
 
 void start();
+
+// Métodos da lista
+
+Node* createNode(const char* value);
+
+void insertAtEnd(Node** list, const char* value);
+
+void printList(Node* list);
+
+// void freeList(Node* first);
 
 // Métodos de Exibição de tela
 
@@ -31,9 +41,7 @@ void dessertsScreen();
 
 void invalidOptionScreen();
 
-void successfullyAddedScreen();
-
-void successfullAddScreen();
+void successfulAddScreen();
 
 void unsuccessfulAddScreen();
 
@@ -54,6 +62,8 @@ void appetizersScreenSelection(int option);
 void dessertsScreenSelection(int option);
 
 // Outros
+
+void checkIsAValidOption(int option, int amount);
 
 int isAValidOption(int option, int range);
 
