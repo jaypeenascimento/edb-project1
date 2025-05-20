@@ -2,6 +2,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+Node* L = NULL;
 
 void start() {
     int option;
@@ -10,6 +13,57 @@ void start() {
     scanf("%d", &option);
     homeScreenSelection(option);
 };
+
+Node* createNode(const char* value) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    if (!new_node)
+        return NULL;
+
+    new_node->value = (char*)malloc(strlen(value) + 1);
+    if (!new_node->value) {
+        free(new_node);
+        return NULL;
+    }
+    strcpy(new_node->value, value);
+    new_node->next = NULL;
+
+    return new_node;
+}
+
+void insertAtEnd(Node** list, const char* value) {
+    Node* new_node = createNode(value);
+    if (!new_node)
+        return;
+
+    if (*list == NULL) {
+        *list = new_node;
+        return;
+    }
+
+    Node* current = *list;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+
+    current->next = new_node;
+
+    successfulAddScreen();
+}
+
+void printList(Node* list) {
+    Node* current = list;
+
+    clearScreen();
+    printf("===== Lista de pedidos =====\n\n");
+    while (current != NULL) {
+        printf("%s\n", current->value);
+        current = current->next;
+    }
+    printf("\n=====\n\n");
+    printf("Pressione ENTER para voltar a tela inicial...");
+    getchar();
+    getchar();
+}
 
 void homeScreen() {
     clearScreen();
@@ -79,10 +133,10 @@ void invalidOptionScreen() {
     getchar();
 }
 
-void successfullAddScreen() {
+void successfulAddScreen() {
     clearScreen();
     printf("===== \n\n");
-    printf("Adicionado com sucesso!\n\n");
+    printf("Adicionado com sucesso!\n");
     printf("\n=====\n\n");
     printf("Pressione ENTER para voltar a tela inicial...");
     getchar();
@@ -135,9 +189,7 @@ void homeScreenSelection(int option) {
             // scanf("%d", &option);
             break;
         case 4:
-            // TODO: Método para listar pedidos do salão
-            notImplementedYetScreen();
-            // scanf("%d", &option);
+            printList(L);
             break;
         case 5:
             // TODO: Método para listar pedidos da cozinha
@@ -178,37 +230,32 @@ void platesScreenSelection(int option) {
 void appetizersScreenSelection(int option) {
     int APPETIZERS_AMOUNT = 5;
 
-    if (!isAValidOption(option, APPETIZERS_AMOUNT)) {
-        invalidOptionScreen();
-        return;
-    }
+    checkIsAValidOption(option, APPETIZERS_AMOUNT);
 
-    // TODO: Método para adicionar option a lista de pedidos
-    notImplementedYetScreen();
+    // TODO: Precisamos definir um array com as opções
+    insertAtEnd(&L, "Opção de Entrada Escolhida");
 }
 
 void mainPlatesScreenSelection(int option) {
     int MAIN_PLATES_AMOUNT = 5;
 
-    if (!isAValidOption(option, MAIN_PLATES_AMOUNT)) {
-        invalidOptionScreen();
-        return;
-    }
+    checkIsAValidOption(option, MAIN_PLATES_AMOUNT);
 
-    // TODO: Método para adicionar a lista de pedidos
-    notImplementedYetScreen();
+    // TODO: Precisamos definir um array com as opções
+    insertAtEnd(&L, "Opção de Prato Principal Escolhida");
 }
 
 void dessertsScreenSelection(int option) {
     int DESSERTS_AMOUNT = 5;
 
-    if (!isAValidOption(option, DESSERTS_AMOUNT)) {
-        invalidOptionScreen();
-        return;
-    }
+    checkIsAValidOption(option, DESSERTS_AMOUNT);
 
-    // TODO: Método para adicionar a lista de pedidos
-    notImplementedYetScreen();
+    // TODO: Precisamos definir um array com as opções
+    insertAtEnd(&L, "Opção de sobremesa Escolhida");
+}
+
+void checkIsAValidOption(int option, int amount) {
+    !isAValidOption(option, amount) ? invalidOptionScreen() : 0;
 }
 
 int isAValidOption(int option, int range) {
