@@ -54,6 +54,11 @@ void Enqueue(Queue* queue, QueueNode* node) {
 }
 
 QueueNode Dequeue(Queue* queue) {
+  if(IsEmpty(*queue)) {
+    printf("Called dequeue with queue empty. Will exit!\n");
+    exit(1);
+  }
+
   if(queue->head == queue->tail) {
     // Copy and free current node.
     QueueNode nodeCopy = *queue->head;
@@ -77,7 +82,6 @@ QueueNode Dequeue(Queue* queue) {
   }
   queue->head = curr;
   curr->next = NULL;
-
 
   return nodeCopy;
 }
