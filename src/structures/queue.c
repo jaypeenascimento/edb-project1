@@ -37,6 +37,9 @@ bool IsEmpty(Queue queue) {
 }
 
 void Enqueue(Queue* queue, QueueNode* node) {
+  // Garantee next will be null.
+  node->next = NULL;
+
   if (IsEmpty(*queue)) {
     queue->head = node;
     queue->tail = node;
@@ -48,5 +51,34 @@ void Enqueue(Queue* queue, QueueNode* node) {
   node->next = tail;
 
   queue->tail = node;
+}
+
+QueueNode Dequeue(Queue* queue) {
+  if(queue->head == queue->tail) {
+    // Copy and free current node.
+    QueueNode nodeCopy = *queue->head;
+    free(queue->head);
+
+    // Reset queue
+    queue->head = NULL;
+    queue->tail = NULL;
+
+    return nodeCopy;
+  }
+
+  // Copy and free current head.
+  QueueNode nodeCopy = *queue->head;
+  free(queue->head);
+
+  // Updating head pointer
+  QueueNode* curr = queue->tail;
+  while (curr->next != queue->head) {
+    curr = curr->next;
+  }
+  queue->head = curr;
+  curr->next = NULL;
+
+
+  return nodeCopy;
 }
 
