@@ -31,3 +31,7 @@ QueueNode* NewNode(const char* value) {
   strcpy(n->value, value);
   return n;
 }
+
+bool IsEmpty(Queue queue) {
+  return queue.head == NULL && queue.tail == NULL;
+}
