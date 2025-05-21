@@ -35,3 +35,18 @@ QueueNode* NewNode(const char* value) {
 bool IsEmpty(Queue queue) {
   return queue.head == NULL && queue.tail == NULL;
 }
+
+void Enqueue(Queue* queue, QueueNode* node) {
+  if (IsEmpty(*queue)) {
+    queue->head = node;
+    queue->tail = node;
+
+    return;
+  }
+
+  QueueNode* tail = queue->tail;
+  node->next = tail;
+
+  queue->tail = node;
+}
+
