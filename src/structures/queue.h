@@ -19,5 +19,5 @@ QueueNode* NewNode(const char* value);
 void Enqueue(Queue* queue, QueueNode* node);
 QueueNode* Dequeue(Queue* queue);
 
-bool IsEmpty(Queue* queue);
+bool IsEmpty(Queue queue);
 #endif
