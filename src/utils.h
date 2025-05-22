@@ -45,6 +45,8 @@ void successfulAddScreen();
 
 void unsuccessfulAddScreen();
 
+void printArray(const char* const array[], int size);
+
 void clearScreen();
 
 void notImplementedYetScreen();
@@ -68,5 +70,7 @@ void checkIsAValidOption(int option, int amount);
 int isAValidOption(int option, int range);
 
 int inRange(int val, int min, int max);
+
+void waitForEnter();
 
 #endif

@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "options.c"
+
 Node* L = NULL;
 
 void start() {
@@ -11,6 +13,7 @@ void start() {
 
     homeScreen();
     scanf("%d", &option);
+    waitForEnter();
     homeScreenSelection(option);
 };
 
@@ -56,23 +59,25 @@ void printList(Node* list) {
     clearScreen();
     printf("===== Lista de pedidos =====\n\n");
     while (current != NULL) {
-        printf("%s\n", current->value);
+        printf("- %s\n", current->value);
         current = current->next;
     }
     printf("\n=====\n\n");
     printf("Pressione ENTER para voltar a tela inicial...");
-    getchar();
-    getchar();
+
+    waitForEnter();
+}
+
+void printArray(const char* const array[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d. %s\n", i + 1, array[i]);
+    }
 }
 
 void homeScreen() {
     clearScreen();
     printf("===== Menu =====\n\n");
-    printf("1. Adicionar pedido\n");
-    printf("2. Remover pedido\n");
-    printf("3. Processar pedido\n");
-    printf("4. Listar pedidos (Salão)\n");
-    printf("5. Listar pedidos (Cozinha)\n");
+    printArray(HOME_MENU, ARRAY_LENGTH(HOME_MENU));
     printf("\n=====\n\n");
     printf("Digite a opção desejada: ");
 }
@@ -80,9 +85,7 @@ void homeScreen() {
 void platesScreen() {
     clearScreen();
     printf("===== Cardápio =====\n\n");
-    printf("1. Entradas\n");
-    printf("2. Pratos Principais\n");
-    printf("3. Sobremesas\n");
+    printArray(PLATES_MENU, ARRAY_LENGTH(PLATES_MENU));
     printf("\n=====\n\n");
     printf("Digite a opção desejada: ");
 }
@@ -90,11 +93,7 @@ void platesScreen() {
 void mainPlatesScreen() {
     clearScreen();
     printf("===== Entradas =====\n\n");
-    printf("1. Sopa de Cebola\n");
-    printf("2. Salada Caesar\n");
-    printf("3. Bruschetta\n");
-    printf("4. Carpaccio de Carne\n");
-    printf("5. Camarão ao Alho\n");
+    printArray(MAIN_PLATES, ARRAY_LENGTH(MAIN_PLATES));
     printf("\n=====\n\n");
     printf("Digite a opção desejada: ");
 }
@@ -102,11 +101,7 @@ void mainPlatesScreen() {
 void appetizersScreen() {
     clearScreen();
     printf("===== Pratos Principais =====\n\n");
-    printf("1. Lasanha à Bolonhesa\n");
-    printf("2. Filé Mignon com Fritas\n");
-    printf("3. Frango Grelhado com Legumes\n");
-    printf("4. Bacalhau à Gomes de Sá\n");
-    printf("5. Risoto de Cogumelos\n");
+    printArray(APPETIZERS, ARRAY_LENGTH(APPETIZERS));
     printf("\n=====\n\n");
     printf("Digite a opção desejada: ");
 }
@@ -114,11 +109,7 @@ void appetizersScreen() {
 void dessertsScreen() {
     clearScreen();
     printf("===== Sobremesas =====\n\n");
-    printf("1. Tiramisu\n");
-    printf("2. Cheesecake de Frutas Vermelhas\n");
-    printf("3. Mousse de Chocolate\n");
-    printf("4. Pudim de Leite\n");
-    printf("5. Sorvete de Baunilha com Calda de Morango\n");
+    printArray(DESSERTS, ARRAY_LENGTH(DESSERTS));
     printf("\n=====\n\n");
     printf("Digite a opção desejada: ");
 }
@@ -129,8 +120,8 @@ void invalidOptionScreen() {
     printf("Opção inválida!\n");
     printf("\n=====\n\n");
     printf("Pressione ENTER para voltar a tela inicial...");
-    getchar();
-    getchar();
+
+    waitForEnter();
 }
 
 void successfulAddScreen() {
@@ -139,18 +130,17 @@ void successfulAddScreen() {
     printf("Adicionado com sucesso!\n");
     printf("\n=====\n\n");
     printf("Pressione ENTER para voltar a tela inicial...");
-    getchar();
-    getchar();
-};
 
+    waitForEnter();
+}
 void unsuccessfulAddScreen() {
     clearScreen();
     printf("===== \n\n");
     printf("Erro ao adicionar\n\n");
     printf("\n=====\n\n");
     printf("Pressione ENTER para voltar a tela inicial...");
-    getchar();
-    getchar();
+
+    waitForEnter();
 };
 
 void notImplementedYetScreen() {
@@ -159,8 +149,8 @@ void notImplementedYetScreen() {
     printf("Não implementado ainda\n");
     printf("\n=====\n\n");
     printf("Pressione ENTER para voltar a tela inicial...\n");
-    getchar();
-    getchar();
+
+    waitForEnter();
 }
 
 void clearScreen() {
@@ -176,6 +166,7 @@ void homeScreenSelection(int option) {
         case 1:
             platesScreen();
             scanf("%d", &option);
+            waitForEnter();
             platesScreenSelection(option);
             break;
         case 2:
@@ -207,51 +198,43 @@ void platesScreenSelection(int option) {
         case 1:
             appetizersScreen();
             scanf("%d", &option);
+            waitForEnter();
             appetizersScreenSelection(option);
             break;
         case 2:
             mainPlatesScreen();
             scanf("%d", &option);
+            waitForEnter();
             mainPlatesScreenSelection(option);
             break;
         case 3:
             dessertsScreen();
             scanf("%d", &option);
+            waitForEnter();
             dessertsScreenSelection(option);
             break;
         default:
             invalidOptionScreen();
-            getchar();
-            getchar();
             break;
     }
 }
 
 void appetizersScreenSelection(int option) {
-    int APPETIZERS_AMOUNT = 5;
+    checkIsAValidOption(option, ARRAY_LENGTH(APPETIZERS));
 
-    checkIsAValidOption(option, APPETIZERS_AMOUNT);
-
-    // TODO: Precisamos definir um array com as opções
-    insertAtEnd(&L, "Opção de Entrada Escolhida");
+    insertAtEnd(&L, APPETIZERS[option - 1]);
 }
 
 void mainPlatesScreenSelection(int option) {
-    int MAIN_PLATES_AMOUNT = 5;
+    checkIsAValidOption(option, ARRAY_LENGTH(MAIN_PLATES));
 
-    checkIsAValidOption(option, MAIN_PLATES_AMOUNT);
-
-    // TODO: Precisamos definir um array com as opções
-    insertAtEnd(&L, "Opção de Prato Principal Escolhida");
+    insertAtEnd(&L, MAIN_PLATES[option - 1]);
 }
 
 void dessertsScreenSelection(int option) {
-    int DESSERTS_AMOUNT = 5;
+    checkIsAValidOption(option, ARRAY_LENGTH(DESSERTS));
 
-    checkIsAValidOption(option, DESSERTS_AMOUNT);
-
-    // TODO: Precisamos definir um array com as opções
-    insertAtEnd(&L, "Opção de sobremesa Escolhida");
+    insertAtEnd(&L, DESSERTS[option - 1]);
 }
 
 void checkIsAValidOption(int option, int amount) {
@@ -264,4 +247,8 @@ int isAValidOption(int option, int range) {
 
 int inRange(int val, int min, int max) {
     return val >= min && val <= max;
+}
+
+void waitForEnter() {
+    getchar();
 }
