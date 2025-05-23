@@ -24,33 +24,25 @@ Node* createNode(const char* value);
 
 void insertAtEnd(Node** list, const char* value);
 
-void printList(Node* list);
+struct Node* removeOrder(struct Node* head, int position);
+
+void printOrdersForRemove(Node* list);
+
+void printOrders(Node* list);
+
+void printList(Node* current);
 
 // void freeList(Node* first);
 
 // Métodos de Exibição de tela
 
-void homeScreen();
+void customScreen(char* title, char* items[], int size);
 
-void platesScreen();
+void customMessageScreen(char* message);
 
-void mainPlatesScreen();
-
-void appetizersScreen();
-
-void dessertsScreen();
-
-void invalidOptionScreen();
-
-void successfulAddScreen();
-
-void unsuccessfulAddScreen();
-
-void printArray(const char* const array[], int size);
+void printArray(char* array[], int size);
 
 void clearScreen();
-
-void notImplementedYetScreen();
 
 // Métodos de Seleção de tela
 
@@ -73,5 +65,7 @@ int isAValidOption(int option, int range);
 int inRange(int val, int min, int max);
 
 void waitForEnter();
+
+void flushInput();
 
 #endif

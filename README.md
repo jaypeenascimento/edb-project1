@@ -34,3 +34,4 @@ Vide `LICENSE` para mais informações.
 1. [Criação de nós](https://stackoverflow.com/questions/23782763/node-creation-c)
 2. [Manipulação de listas](https://www.geeksforgeeks.org/c-program-for-inserting-a-node-in-a-linked-list/)
 3. [Lista populadas com string](https://pt.stackoverflow.com/questions/473448/lista-encadeadalinked-list-populada-com-strings)
+4. [Remoção de elementos na lista encadeada](https://www.geeksforgeeks.org/delete-a-linked-list-node-at-a-given-position/)
