@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "options.c"
 
@@ -14,7 +15,7 @@ void start() {
     homeScreen();
     scanf("%d", &option);
     waitForEnter();
-    homeScreenSelection(option);
+    homeScreenSelection(option); 
 };
 
 Node* createNode(const char* value) {
@@ -49,8 +50,6 @@ void insertAtEnd(Node** list, const char* value) {
     }
 
     current->next = new_node;
-
-    successfulAddScreen();
 }
 
 void printList(Node* list) {
@@ -124,7 +123,7 @@ void invalidOptionScreen() {
     waitForEnter();
 }
 
-void successfulAddScreen() {
+void successfulAddScreen() { 
     clearScreen();
     printf("===== \n\n");
     printf("Adicionado com sucesso!\n");
@@ -164,9 +163,9 @@ void clearScreen() {
 void homeScreenSelection(int option) {
     switch (option) {
         case 1:
-            platesScreen();
-            scanf("%d", &option);
-            waitForEnter();
+            platesScreen();               
+            scanf("%d", &option);         
+            waitForEnter();               
             platesScreenSelection(option);
             break;
         case 2:
@@ -193,12 +192,12 @@ void homeScreenSelection(int option) {
     }
 }
 
-void platesScreenSelection(int option) {
+void platesScreenSelection(int option) { 
     switch (option) {
         case 1:
             appetizersScreen();
-            scanf("%d", &option);
-            waitForEnter();
+            scanf("%d", &option); 
+            waitForEnter(); 
             appetizersScreenSelection(option);
             break;
         case 2:
@@ -219,26 +218,41 @@ void platesScreenSelection(int option) {
     }
 }
 
-void appetizersScreenSelection(int option) {
+void appetizersScreenSelection(int option) { 
     checkIsAValidOption(option, ARRAY_LENGTH(APPETIZERS));
+    if (!isValid) {
+      invalidOptionScreen();
+      return;
+    }
 
     insertAtEnd(&L, APPETIZERS[option - 1]);
+    successfulAddScreen();
 }
 
 void mainPlatesScreenSelection(int option) {
     checkIsAValidOption(option, ARRAY_LENGTH(MAIN_PLATES));
+    if (!isValid) {
+      invalidOptionScreen();
+      return;
+    }
 
     insertAtEnd(&L, MAIN_PLATES[option - 1]);
+    successfulAddScreen();
 }
 
 void dessertsScreenSelection(int option) {
-    checkIsAValidOption(option, ARRAY_LENGTH(DESSERTS));
+    bool isValid = checkIsAValidOption(option, ARRAY_LENGTH(DESSERTS));
+    if (!isValid) {
+      invalidOptionScreen();
+      return;
+    }
 
     insertAtEnd(&L, DESSERTS[option - 1]);
+    successfulAddScreen();
 }
 
-void checkIsAValidOption(int option, int amount) {
-    !isAValidOption(option, amount) ? invalidOptionScreen() : 0;
+bool checkIsAValidOption(int option, int amount) {
+    return isAValidOption(option, amount);
 }
 
 int isAValidOption(int option, int range) {
