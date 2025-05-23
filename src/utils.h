@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <stdbool.h>
 // Definição das estruturas
 
 typedef struct Node {
@@ -65,7 +66,7 @@ void dessertsScreenSelection(int option);
 
 // Outros
 
-void checkIsAValidOption(int option, int amount);
+bool checkIsAValidOption(int option, int amount);
 
 int isAValidOption(int option, int range);
 
