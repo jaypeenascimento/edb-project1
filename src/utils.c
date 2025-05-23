@@ -219,7 +219,7 @@ void platesScreenSelection(int option) {
 }
 
 void appetizersScreenSelection(int option) { 
-    checkIsAValidOption(option, ARRAY_LENGTH(APPETIZERS));
+    bool isValid = checkIsAValidOption(option, ARRAY_LENGTH(APPETIZERS));
     if (!isValid) {
       invalidOptionScreen();
       return;
@@ -230,7 +230,7 @@ void appetizersScreenSelection(int option) {
 }
 
 void mainPlatesScreenSelection(int option) {
-    checkIsAValidOption(option, ARRAY_LENGTH(MAIN_PLATES));
+    bool isValid = checkIsAValidOption(option, ARRAY_LENGTH(MAIN_PLATES));
     if (!isValid) {
       invalidOptionScreen();
       return;
