@@ -1,7 +1,7 @@
 #ifndef MENU_OPTIONS_H
 #define MENU_OPTIONS_H
 
-static const char* const HOME_MENU[] = {
+char* HOME_MENU[] = {
     "Adicionar pedido",
     "Remover pedido",
     "Processar pedido",
@@ -9,13 +9,13 @@ static const char* const HOME_MENU[] = {
     "Listar pedidos (Cozinha)"
 };
 
-static const char* const PLATES_MENU[] = {
+char* PLATES_MENU[] = {
     "Entradas",
     "Pratos Principais",
     "Sobremesas"
 };
 
-static const char* const APPETIZERS[] = {
+char* APPETIZERS[] = {
     "Sopa de Cebola",
     "Salada Caesar",
     "Bruschetta",
@@ -23,7 +23,7 @@ static const char* const APPETIZERS[] = {
     "Camarão ao Alho"
 };
 
-static const char* const MAIN_PLATES[] = {
+char* MAIN_PLATES[] = {
     "Lasanha à Bolonhesa",
     "Filé Mignon com Fritas",
     "Frango Grelhado com Legumes",
@@ -31,7 +31,7 @@ static const char* const MAIN_PLATES[] = {
     "Risoto de Cogumelos"
 };
 
-static const char* const DESSERTS[] = {
+char* DESSERTS[] = {
     "Tiramisu",
     "Cheesecake de Frutas Vermelhas",
     "Mousse de Chocolate",
