@@ -151,10 +151,10 @@ void doProcessOrder() {
     OrderQueue = NewQueue();
   }
 
-  QueueNode* node = NewNode(L->value);
+  QueueNode* node = NewNode(L);
   Enqueue(OrderQueue, node);
 
-  emptyOrderList(L);
+  L = NULL;
 }
 
 void PrintOrderQueue() {
@@ -173,9 +173,16 @@ void doPrintOrderQueue() {
   QueueNode* current = OrderQueue->tail;
   int count = 0;
   while (current != NULL) {
-      count++;
-      printf("%d. %s\n", count, current->value);
-      current = current->next;
+    count++;
+    printf("Pedido número %d:\n", count);
+
+    Node* list = current->value;
+    // Print order list
+    while (list != NULL) {
+        printf(" - %s\n", list->value);
+        list = list->next;
+    }
+    current = current->next;
   }
 }
 

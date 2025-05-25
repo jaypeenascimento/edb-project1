@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "queue.h"
+#include "../utils.h"
 
 Queue* NewQueue() {
   Queue* q = malloc(sizeof(Queue));
@@ -14,21 +15,14 @@ Queue* NewQueue() {
   return q;
 }
 
-QueueNode* NewNode(const char* value) { 
+QueueNode* NewNode(Node* value) { 
   QueueNode* n = malloc(sizeof(QueueNode));
   if (!n) {
     return NULL;
   }
 
-  n->value = (char*)malloc(strlen(value) + 1);
-  if (!n->value) {
-      free(n);
-      return NULL;
-  }
-
+  n->value = value;
   n->next = NULL;
-
-  strcpy(n->value, value);
   return n;
 }
 
