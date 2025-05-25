@@ -176,8 +176,8 @@ void doPrintOrderQueue() {
     count++;
     printf("Pedido número %d:\n", count);
 
+    // TODO: Print order list at REVERSE order!
     Node* list = current->value;
-    // Print order list
     while (list != NULL) {
         printf(" - %s\n", list->value);
         list = list->next;
