@@ -21,6 +21,8 @@ void insertAtEnd(Node** list, const char* value);
 
 struct Node* removeOrder(struct Node* head, int position);
 
+void emptyOrderList();
+
 void printOrdersForRemove(Node* list);
 
 void printOrders(Node* list);
@@ -30,6 +32,10 @@ void printList(Node* current);
 // void freeList(Node* first);
 
 // Métodos da Fila
+
+void ProcessOrder();
+
+void doProcessOrder();
 
 void PrintOrderQueue();
 

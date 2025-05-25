@@ -87,6 +87,17 @@ struct Node* removeOrder(struct Node* head, int position) {
     return head;
 }
 
+void emptyOrderList() {
+  Node* current = L;
+  while (current != NULL) {
+    Node* tmp = current;
+    current = current->next;
+    free(tmp);
+  }
+
+  L = NULL;
+}
+
 void printOrdersForRemove(Node* list) {
     Node* current = list;
 
@@ -124,6 +135,28 @@ void printList(Node* current) {
     }
 }
 
+void ProcessOrder() {
+  if (L == NULL) {
+    customMessageScreen("Não foi possível processar o pedido: Lista do salão está vazia.");
+    return;
+  }
+
+  doProcessOrder();
+  customMessageScreen("Pedido adicionado a fila da cozinha!");
+}
+
+void doProcessOrder() {
+  // Start queue if it's null.
+  if (OrderQueue == NULL) {
+    OrderQueue = NewQueue();
+  }
+
+  QueueNode* node = NewNode(L->value);
+  Enqueue(OrderQueue, node);
+
+  emptyOrderList(L);
+}
+
 void PrintOrderQueue() {
     clearScreen();
     printf("===== Fila de pedidos =====\n\n");
@@ -132,6 +165,7 @@ void PrintOrderQueue() {
 }
 
 void doPrintOrderQueue() {
+  // Start queue if it's null.
   if (OrderQueue == NULL) {
     OrderQueue = NewQueue();
   }
@@ -191,9 +225,7 @@ void homeScreenSelection(int option) {
             L = removeOrder(L, option);
             break;
         case 3:
-            // TODO: Método para processar pedido
-            customMessageScreen("Não implementado ainda");
-            // scanf("%d", &option);
+            ProcessOrder();
             break;
         case 4:
             printOrders(L);
