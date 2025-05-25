@@ -4,10 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "structures/queue.h"
 
 #include "options.c"
 
 Node* L = NULL;
+Queue* OrderQueue = NULL;
 
 void start() {
     int option;
@@ -122,6 +124,27 @@ void printList(Node* current) {
     }
 }
 
+void PrintOrderQueue() {
+    clearScreen();
+    printf("===== Fila de pedidos =====\n\n");
+    doPrintOrderQueue();
+    printf("\n=====\n\n");
+}
+
+void doPrintOrderQueue() {
+  if (OrderQueue == NULL) {
+    OrderQueue = NewQueue();
+  }
+
+  QueueNode* current = OrderQueue->tail;
+  int count = 0;
+  while (current != NULL) {
+      count++;
+      printf("%d. %s\n", count, current->value);
+      current = current->next;
+  }
+}
+
 void printArray(char* array[], int size) {
     for (int i = 0; i < size; i++) {
         printf("%d. %s\n", i + 1, array[i]);
@@ -176,9 +199,8 @@ void homeScreenSelection(int option) {
             printOrders(L);
             break;
         case 5:
-            // TODO: Método para listar pedidos da cozinha
-            customMessageScreen("Não implementado ainda");
-            // scanf("%d", &option);
+            PrintOrderQueue();
+            waitForEnter();
             break;
         default:
             customMessageScreen("Opção inválida");

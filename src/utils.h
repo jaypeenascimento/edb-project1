@@ -9,11 +9,6 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-typedef struct OrderQueue {
-    Node* head;
-    Node* tail;
-} OrderQueue;
-
 // Método de inicialização
 
 void start();
@@ -33,6 +28,12 @@ void printOrders(Node* list);
 void printList(Node* current);
 
 // void freeList(Node* first);
+
+// Métodos da Fila
+
+void PrintOrderQueue();
+
+void doPrintOrderQueue();
 
 // Métodos de Exibição de tela
 
