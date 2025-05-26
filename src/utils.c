@@ -6,6 +6,7 @@
 #include <string.h>
 #include "structures/queue.h"
 #include "structures/list.h"
+#include "screen/screen.h"
 
 #include "options.c"
 
@@ -20,41 +21,38 @@ void start() {
     homeScreenSelection(option);
 };
 
-void printOrdersForRemove(Node* list) {
-    Node* current = list;
+struct Node* removeOrder(struct Node* head, int position) {
+    struct Node* temp = head;
+    struct Node* prev = NULL;
 
-    clearScreen();
-    printf("===== Lista de pedidos =====\n\n");
-    printList(current);
-    printf("\n=====\n\n");
-    printf("Digite a opção desejada: ");
-}
+    flushInput();
 
-void printOrders(Node* list) {
-    Node* current = list;
-
-    if (list == NULL) {
+    if (temp == NULL) {
         customMessageScreen("Não existe pedido na lista.");
-        return;
+        return head;
     }
 
-    clearScreen();
-    printf("===== Lista de pedidos =====\n\n");
-    printList(current);
-    printf("\n=====\n\n");
-    printf("Pressione ENTER para voltar a tela inicial...");
-
-    waitForEnter();
-}
-
-void printList(Node* current) {
-    int count = 0;
-
-    while (current != NULL) {
-        count++;
-        printf("%d. %s\n", count, current->value);
-        current = current->next;
+    if (position == 1) {
+        head = temp->next;
+        free(temp);
+        customMessageScreen("Removido com sucesso.");
+        return head;
     }
+
+    for (int i = 1; temp != NULL && i < position; i++) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp != NULL) {
+        prev->next = temp->next;
+        free(temp);
+        customMessageScreen("Removido com sucesso.");
+    } else {
+        customMessageScreen("Opção inválida");
+    }
+
+    return head;
 }
 
 void ProcessOrder() {
@@ -79,75 +77,6 @@ void doProcessOrder() {
   L = NULL;
 }
 
-void PrintOrderQueue() {
-    if (OrderQueue == NULL) {
-      OrderQueue = NewQueue();
-    }
-    if (OrderQueue->count == 0) {
-      customMessageScreen("A fila da cozinha está vazia!");
-      return;
-    }
-
-    clearScreen();
-    printf("===== Fila de pedidos =====\n\n");
-    doPrintOrderQueue();
-    printf("\n=====\n\n");
-    waitForEnter();
-}
-
-void doPrintOrderQueue() {
-  // Start queue if it's null.
-  if (OrderQueue == NULL) {
-    OrderQueue = NewQueue();
-  }
-
-  QueueNode* current = OrderQueue->tail;
-  int i = OrderQueue->count;
-  while (current != NULL) {
-    printf("Pedido número %d:\n", i);
-    i--;
-
-    Node* list = current->value;
-    while (list != NULL) {
-        printf(" - %s\n", list->value);
-        list = list->next;
-    }
-    current = current->next;
-  }
-}
-
-void printArray(char* array[], int size) {
-    for (int i = 0; i < size; i++) {
-        printf("%d. %s\n", i + 1, array[i]);
-    }
-}
-
-void customScreen(char* title, char* items[], int size) {
-    clearScreen();
-    printf("===== %s =====\n\n", title);
-    printArray(items, size);
-    printf("\n=====\n\n");
-    printf("Digite a opção desejada: ");
-}
-
-void customMessageScreen(char* message) {
-    clearScreen();
-    printf("===== \n\n");
-    printf("%s\n", message);
-    printf("\n=====\n\n");
-    printf("Pressione ENTER para voltar a tela inicial...");
-
-    waitForEnter();
-}
-
-void clearScreen() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
-}
-
 void homeScreenSelection(int option) {
     switch (option) {
         case 1:
@@ -168,7 +97,7 @@ void homeScreenSelection(int option) {
             printOrders(L);
             break;
         case 5:
-            PrintOrderQueue();
+            PrintOrderQueue(OrderQueue);
             break;
         default:
             customMessageScreen("Opção inválida");

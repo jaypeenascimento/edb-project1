@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <stdbool.h>
+#include "structures/list.h"
 // Definição das estruturas
 
 // Método de inicialização
@@ -10,33 +11,13 @@ void start();
 
 // Métodos da lista
 
-void printOrdersForRemove(Node* list);
-
-void printOrders(Node* list);
-
-void printList(Node* current);
-
-// void freeList(Node* first);
+struct Node* removeOrder(struct Node* head, int position);
 
 // Métodos da Fila
 
 void ProcessOrder();
 
 void doProcessOrder();
-
-void PrintOrderQueue();
-
-void doPrintOrderQueue();
-
-// Métodos de Exibição de tela
-
-void customScreen(char* title, char* items[], int size);
-
-void customMessageScreen(char* message);
-
-void printArray(char* array[], int size);
-
-void clearScreen();
 
 // Métodos de Seleção de tela
 
