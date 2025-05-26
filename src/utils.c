@@ -4,10 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "structures/queue.h"
 
 #include "options.c"
 
 Node* L = NULL;
+Queue* OrderQueue = NULL;
 
 void start() {
     int option;
@@ -85,6 +87,17 @@ struct Node* removeOrder(struct Node* head, int position) {
     return head;
 }
 
+void emptyOrderList() {
+  Node* current = L;
+  while (current != NULL) {
+    Node* tmp = current;
+    current = current->next;
+    free(tmp);
+  }
+
+  L = NULL;
+}
+
 void printOrdersForRemove(Node* list) {
     Node* current = list;
 
@@ -120,6 +133,65 @@ void printList(Node* current) {
         printf("%d. %s\n", count, current->value);
         current = current->next;
     }
+}
+
+void ProcessOrder() {
+  if (L == NULL) {
+    customMessageScreen("Não foi possível processar o pedido: Lista do salão está vazia.");
+    return;
+  }
+
+  doProcessOrder();
+  customMessageScreen("Pedido adicionado a fila da cozinha!");
+}
+
+void doProcessOrder() {
+  // Start queue if it's null.
+  if (OrderQueue == NULL) {
+    OrderQueue = NewQueue();
+  }
+
+  QueueNode* node = NewNode(L);
+  Enqueue(OrderQueue, node);
+
+  L = NULL;
+}
+
+void PrintOrderQueue() {
+    if (OrderQueue == NULL) {
+      OrderQueue = NewQueue();
+    }
+    if (OrderQueue->count == 0) {
+      customMessageScreen("A fila da cozinha está vazia!");
+      return;
+    }
+
+    clearScreen();
+    printf("===== Fila de pedidos =====\n\n");
+    doPrintOrderQueue();
+    printf("\n=====\n\n");
+    waitForEnter();
+}
+
+void doPrintOrderQueue() {
+  // Start queue if it's null.
+  if (OrderQueue == NULL) {
+    OrderQueue = NewQueue();
+  }
+
+  QueueNode* current = OrderQueue->tail;
+  int i = OrderQueue->count;
+  while (current != NULL) {
+    printf("Pedido número %d:\n", i);
+    i--;
+
+    Node* list = current->value;
+    while (list != NULL) {
+        printf(" - %s\n", list->value);
+        list = list->next;
+    }
+    current = current->next;
+  }
 }
 
 void printArray(char* array[], int size) {
@@ -168,17 +240,13 @@ void homeScreenSelection(int option) {
             L = removeOrder(L, option);
             break;
         case 3:
-            // TODO: Método para processar pedido
-            customMessageScreen("Não implementado ainda");
-            // scanf("%d", &option);
+            ProcessOrder();
             break;
         case 4:
             printOrders(L);
             break;
         case 5:
-            // TODO: Método para listar pedidos da cozinha
-            customMessageScreen("Não implementado ainda");
-            // scanf("%d", &option);
+            PrintOrderQueue();
             break;
         default:
             customMessageScreen("Opção inválida");

@@ -9,11 +9,6 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-typedef struct OrderQueue {
-    Node* head;
-    Node* tail;
-} OrderQueue;
-
 // Método de inicialização
 
 void start();
@@ -26,6 +21,8 @@ void insertAtEnd(Node** list, const char* value);
 
 struct Node* removeOrder(struct Node* head, int position);
 
+void emptyOrderList();
+
 void printOrdersForRemove(Node* list);
 
 void printOrders(Node* list);
@@ -33,6 +30,16 @@ void printOrders(Node* list);
 void printList(Node* current);
 
 // void freeList(Node* first);
+
+// Métodos da Fila
+
+void ProcessOrder();
+
+void doProcessOrder();
+
+void PrintOrderQueue();
+
+void doPrintOrderQueue();
 
 // Métodos de Exibição de tela
 

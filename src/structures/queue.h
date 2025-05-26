@@ -2,19 +2,21 @@
 #define QUEUE_H
 
 #include <stdbool.h>
+#include "../utils.h"
 
 typedef struct QueueNode {
-    char* value;
+    Node* value;
     struct QueueNode* next;
 } QueueNode;
 
 typedef struct Queue{
     QueueNode* head;
     QueueNode* tail;
+    int count;
 } Queue;
 
 Queue* NewQueue();
-QueueNode* NewNode(const char* value);
+QueueNode* NewNode(Node* value);
 
 void Enqueue(Queue* queue, QueueNode* node);
 QueueNode Dequeue(Queue* queue);
