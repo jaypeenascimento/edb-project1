@@ -158,10 +158,19 @@ void doProcessOrder() {
 }
 
 void PrintOrderQueue() {
+    if (OrderQueue == NULL) {
+      OrderQueue = NewQueue();
+    }
+    if (OrderQueue->count == 0) {
+      customMessageScreen("A fila da cozinha está vazia!");
+      return;
+    }
+
     clearScreen();
     printf("===== Fila de pedidos =====\n\n");
     doPrintOrderQueue();
     printf("\n=====\n\n");
+    waitForEnter();
 }
 
 void doPrintOrderQueue() {
@@ -171,12 +180,11 @@ void doPrintOrderQueue() {
   }
 
   QueueNode* current = OrderQueue->tail;
-  int count = 0;
+  int i = OrderQueue->count;
   while (current != NULL) {
-    count++;
-    printf("Pedido número %d:\n", count);
+    printf("Pedido número %d:\n", i);
+    i--;
 
-    // TODO: Print order list at REVERSE order!
     Node* list = current->value;
     while (list != NULL) {
         printf(" - %s\n", list->value);
@@ -239,7 +247,6 @@ void homeScreenSelection(int option) {
             break;
         case 5:
             PrintOrderQueue();
-            waitForEnter();
             break;
         default:
             customMessageScreen("Opção inválida");
