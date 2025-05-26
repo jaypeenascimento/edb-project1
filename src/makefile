@@ -8,7 +8,7 @@ CC = gcc
 CFLAGS = -Wall -std=c11
 
 # Arquivos de objeto
-OBJS = main.o utils.o queue.o list.o screen.o
+OBJS = main.o utils.o queue.o list.o screen.o selectors.o options.o
 
 # Regra padrão para compilar o projeto
 all: $(TARGET)
@@ -36,6 +36,12 @@ list.o: structures/list.c structures/list.h
 # Regra para compilar screen.c
 screen.o: screen/screen.c screen/screen.h structures/list.h structures/queue.h
 	$(CC) $(CFLAGS) -c screen/screen.c -o screen.o
+
+selectors.o: screen/selectors.c screen/selectors.h
+	$(CC) $(CFLAGS) -c screen/selectors.c -o selectors.o
+
+options.o: options.c options.h
+	$(CC) $(CFLAGS) -c options.c -o options.o
 
 # Regra para limpar os arquivos gerados
 clean:

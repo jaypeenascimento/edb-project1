@@ -1,5 +1,4 @@
-#ifndef MENU_OPTIONS_H
-#define MENU_OPTIONS_H
+#include "options.h"
 
 char* HOME_MENU[] = {
     "Adicionar pedido",
@@ -38,7 +37,3 @@ char* DESSERTS[] = {
     "Pudim de Leite",
     "Sorvete de Baunilha com Calda de Morango"
 };
-
-#define ARRAY_LENGTH(arr) (sizeof(arr) / sizeof((arr)[0]))
-
-#endif
