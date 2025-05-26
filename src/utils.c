@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "structures/queue.h"
+#include "structures/list.h"
 
 #include "options.c"
 
@@ -18,85 +19,6 @@ void start() {
     waitForEnter();
     homeScreenSelection(option);
 };
-
-Node* createNode(const char* value) {
-    Node* new_node = (Node*)malloc(sizeof(Node));
-    if (!new_node)
-        return NULL;
-
-    new_node->value = (char*)malloc(strlen(value) + 1);
-    if (!new_node->value) {
-        free(new_node);
-        return NULL;
-    }
-    strcpy(new_node->value, value);
-    new_node->next = NULL;
-
-    return new_node;
-}
-
-void insertAtEnd(Node** list, const char* value) {
-    Node* new_node = createNode(value);
-    if (!new_node)
-        return;
-
-    if (*list == NULL) {
-        *list = new_node;
-        return;
-    }
-
-    Node* current = *list;
-    while (current->next != NULL) {
-        current = current->next;
-    }
-
-    current->next = new_node;
-}
-
-struct Node* removeOrder(struct Node* head, int position) {
-    struct Node* temp = head;
-    struct Node* prev = NULL;
-
-    flushInput();
-
-    if (temp == NULL) {
-        customMessageScreen("Não existe pedido na lista.");
-        return head;
-    }
-
-    if (position == 1) {
-        head = temp->next;
-        free(temp);
-        customMessageScreen("Removido com sucesso.");
-        return head;
-    }
-
-    for (int i = 1; temp != NULL && i < position; i++) {
-        prev = temp;
-        temp = temp->next;
-    }
-
-    if (temp != NULL) {
-        prev->next = temp->next;
-        free(temp);
-        customMessageScreen("Removido com sucesso.");
-    } else {
-        customMessageScreen("Opção inválida");
-    }
-
-    return head;
-}
-
-void emptyOrderList() {
-  Node* current = L;
-  while (current != NULL) {
-    Node* tmp = current;
-    current = current->next;
-    free(tmp);
-  }
-
-  L = NULL;
-}
 
 void printOrdersForRemove(Node* list) {
     Node* current = list;

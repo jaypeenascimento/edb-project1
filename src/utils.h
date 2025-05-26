@@ -4,24 +4,11 @@
 #include <stdbool.h>
 // Definição das estruturas
 
-typedef struct Node {
-    char* value;
-    struct Node* next;
-} Node;
-
 // Método de inicialização
 
 void start();
 
 // Métodos da lista
-
-Node* createNode(const char* value);
-
-void insertAtEnd(Node** list, const char* value);
-
-struct Node* removeOrder(struct Node* head, int position);
-
-void emptyOrderList();
 
 void printOrdersForRemove(Node* list);
 
