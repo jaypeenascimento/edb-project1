@@ -12,6 +12,7 @@ typedef struct QueueNode {
 typedef struct Queue{
     QueueNode* head;
     QueueNode* tail;
+    int count;
 } Queue;
 
 Queue* NewQueue();

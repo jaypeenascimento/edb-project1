@@ -12,6 +12,7 @@ Queue* NewQueue() {
   }
   q->head = NULL;
   q->tail = NULL;
+  q->count = 0;
   return q;
 }
 
@@ -27,7 +28,7 @@ QueueNode* NewNode(Node* value) {
 }
 
 bool IsEmpty(Queue queue) {
-  return queue.head == NULL && queue.tail == NULL;
+  return queue.head == NULL && queue.tail == NULL && queue.count == 0;
 }
 
 void Enqueue(Queue* queue, QueueNode* node) {
@@ -37,6 +38,7 @@ void Enqueue(Queue* queue, QueueNode* node) {
   if (IsEmpty(*queue)) {
     queue->head = node;
     queue->tail = node;
+    queue->count = 1;
 
     return;
   }
@@ -45,6 +47,7 @@ void Enqueue(Queue* queue, QueueNode* node) {
   node->next = tail;
 
   queue->tail = node;
+  queue->count++;
 }
 
 QueueNode Dequeue(Queue* queue) {
@@ -61,6 +64,7 @@ QueueNode Dequeue(Queue* queue) {
     // Reset queue
     queue->head = NULL;
     queue->tail = NULL;
+    queue->count = 0;
 
     return nodeCopy;
   }
@@ -76,6 +80,7 @@ QueueNode Dequeue(Queue* queue) {
   }
   queue->head = curr;
   curr->next = NULL;
+  queue->count--;
 
   return nodeCopy;
 }
